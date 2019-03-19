@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.self</groupId>
+        <artifactId>hadoop</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <!--由于这里有所有项目的依赖，所以其他项目必须依赖该项目-->
+    <!--相当于继承了groupId，重写了artifactId-->
+    <artifactId>hadoop-dependencies</artifactId>
+
+    <packaging>pom</packaging>
+
+    <name>hadoop-dependencies</name>
+    <description></description>
+
+    <properties>
+        <!-- 环境配置 解决之前控制台的一些警告-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <!-- 统一的依赖管理 -->
+        <hadoop-hdfs.version>2.7.2</hadoop-hdfs.version>
+        <hadoop-client.version>2.7.2</hadoop-client.version>
+        <hadoop-common.version>2.7.2</hadoop-common.version>
+        <log4j-core.version>2.8.2</log4j-core.version>
+        <junit.version>4.12</junit.version>
+    </properties>
+
+    <dependencyManagement>
+        <!--只管理不下载-->
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-common</artifactId>
+                <version>${hadoop-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-client</artifactId>
+                <version>${hadoop-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-hdfs</artifactId>
+                <version>${hadoop-hdfs.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <!--构建->编译、打包的过程当中要做的事-->
+        <!--maven用来管理整个项目的生命周期：编译、打包、运行。。。-->
+        <plugins>
+            <!-- Compiler 插件, 设定 JDK 版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <!--使用插件，编译要做的事-->
+                <!--以jdk1.8的方式进行构建-->
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <!-- 资源文件配置 -->
+        <!--也是构建的一个环节-->
+        <resources>
+            <resource>
+                <!--静态资源，由于开发的需要，把静态资源文件放到java文件中-->
+                <!--javac打包的时候，不会包含静态文件-->
+                <!--可是如果需要资源文件，
+                所以配置<directory>src/main/java</directory>，来把资源文件打包到jar-->
+                <directory>src/main/java</directory>
+                <excludes><!--排除-->
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <!--这是本来放资源文件的地方-->
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
+</project>
