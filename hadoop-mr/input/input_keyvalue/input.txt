@@ -1,0 +1,9 @@
+line1 hadoop
+line2 hive  spark
+line3 spark
+line1 sqoop mysql
+line5 hbase zookeeper
+line2 kafka spark
+line7 hive
+line1 hadoop
+line9 hadoop
