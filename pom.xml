@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.self</groupId>
+    <artifactId>hadoop</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <!--此时my-shop不能称之为项目，称之为工程，包含多个项目。-->
+    <!--注意这地方是pom，对整个项目进行管理-->
+    <packaging>pom</packaging>
+    <!--用来管理模块的，管理项目的“项目”-->
+    <!--这里不再用"+"添加的方式，添加pom文件，而是在这里添加模块-->
+    <!--部署/上传 到maven项目-->
+    <modules>
+        <module>hadoop-dependencies</module>
+        <module>hadoop-client</module>
+        <module>hadoop-mr</module>
+    </modules>
+</project>
